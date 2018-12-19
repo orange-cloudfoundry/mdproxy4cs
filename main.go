@@ -19,17 +19,31 @@ type App struct {
 }
 
 var (
-	gIName      = kingpin.Flag("iname", "Use given interface to discover dchp server").Default("eth0").String()
-	gLogLevel   = kingpin.Flag("log-level", "Set log level").Default("info").String()
-	gHttpListen = kingpin.Flag("http-listen", "Set server listen address").Default("169.254.169.254:80").String()
+	gIName = kingpin.Flag("iname", "Use given interface to discover dchp server").
+		Envar("MDPROXY4CS_INAME").Default("eth0").String()
+	gLogLevel = kingpin.Flag("log-level", "Set log level").
+			Envar("MDPROXY4CS_LOG_LEVEL").Default("info").String()
+	gLogFile = kingpin.Flag("log-file", "Set log output file, - for stdout").
+			Envar("MDPROXY4CS_LOG_FILE").Default("-").String()
+	gHTTPListen = kingpin.Flag("http-listen", "Set server listen address").
+			Envar("MDPROXY4CS_HTTP_LISTEN").Default("169.254.169.254:80").String()
 )
 
 // NewApp -
 func NewApp() *App {
-	log.SetFormatter(&log.TextFormatter{
-		ForceColors: true,
-	})
-	log.SetOutput(os.Stdout)
+	if *gLogFile == "-" {
+		log.SetFormatter(&log.TextFormatter{
+			ForceColors: true,
+		})
+		log.SetOutput(os.Stdout)
+	} else {
+		file, err := os.OpenFile(*gLogFile, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+		if err != nil {
+			log.Fatalf("unable to create log file %s: %s", gLogFile, err)
+		}
+		log.SetOutput(file)
+	}
+
 	lLevel, lErr := log.ParseLevel(*gLogLevel)
 	if lErr != nil {
 		lLevel = log.ErrorLevel
@@ -102,7 +116,7 @@ func main() {
 	kingpin.Parse()
 
 	app := NewApp()
-	if err := http.ListenAndServe(*gHttpListen, app); err != nil {
+	if err := http.ListenAndServe(*gHTTPListen, app); err != nil {
 		panic(err)
 	}
 }

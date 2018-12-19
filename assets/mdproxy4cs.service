@@ -3,6 +3,7 @@ Description=Cloudstack User Metadata proxy server
 After=network.target
 
 [Service]
+EnvironmentFile=-/etc/default/mdproxy4cs
 ExecStartPre=/usr/share/mdproxy4cs/pre-start.sh
 ExecStart=/usr/bin/mdproxy4cs
 KillMode=process

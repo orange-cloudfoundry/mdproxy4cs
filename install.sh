@@ -11,14 +11,21 @@ repo="orange-cloudfoundry/mdproxy4cs"
 version=$(get_latest_release "${repo}")
 name="mdproxy4cs-${version}.linux-amd64"
 file="${name}.tar.gz"
+dir=$(mktemp -d)
 
-echo curl -sL https://github.com/${repo}/releases/download/v${version}/${file} --output /tmp/${file}
+cd ${dir}
 
-echo tar -C /tmp xvzf /tmp/${file}
-echo cp /tmp/${name}/mdproxy4cs /usr/bin/
+curl -sL https://github.com/${repo}/releases/download/v${version}/${file} --output ${file}
+tar xzf ${file}
+ls -la ${name}/
 
-echo mkdir -p /usr/share/mdproxy4cs/
-echo cp /tmp/${name}/pre-start.sh /usr/share/mdproxy4cs/pre-start.sh
+mkdir -p /usr/share/mdproxy4cs/
 
-echo cp /tmp/${name}/mdproxy4cs.service /etc/systemd/system/
-echo systemctl enable /etc/systemd/system/mdproxy4cs.service
+cp ${name}/mdproxy4cs         /usr/bin/
+cp ${name}/pre-start.sh       /usr/share/mdproxy4cs/pre-start.sh
+cp ${name}/mdproxy4cs.service /etc/systemd/system/
+cp ${name}/default            /etc/default/mdproxy4cs
+
+systemctl enable /etc/systemd/system/mdproxy4cs.service
+
+rm -rf ${dir}
