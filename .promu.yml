@@ -16,6 +16,7 @@ tarball:
     - LICENSE
     - assets/mdproxy4cs.service
     - assets/pre-start.sh
+    - assets/default
 crossbuild:
   platforms:
     - linux/amd64

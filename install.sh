@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 get_latest_release() {
   curl -sL "https://api.github.com/repos/$1/releases/latest" |
@@ -17,7 +18,6 @@ cd ${dir}
 
 curl -sL https://github.com/${repo}/releases/download/v${version}/${file} --output ${file}
 tar xzf ${file}
-ls -la ${name}/
 
 mkdir -p /usr/share/mdproxy4cs/
 
