@@ -87,7 +87,7 @@ func (a *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(500)
 		return
 	}
-	log.Infof("serving response to %s: %s", r.URL.Path, string(content))
+	log.Debugf("serving response to %s: %s", r.URL.Path, string(content))
 	w.Write(content)
 	w.WriteHeader(res.StatusCode)
 }
@@ -116,6 +116,7 @@ func main() {
 	kingpin.Parse()
 
 	app := NewApp()
+	log.Info("listening on %s", *gHTTPListen)
 	if err := http.ListenAndServe(*gHTTPListen, app); err != nil {
 		panic(err)
 	}

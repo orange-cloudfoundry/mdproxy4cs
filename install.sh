@@ -23,9 +23,9 @@ mkdir -p /usr/share/mdproxy4cs/
 
 cp ${name}/mdproxy4cs         /usr/bin/
 cp ${name}/pre-start.sh       /usr/share/mdproxy4cs/pre-start.sh
-cp ${name}/mdproxy4cs.service /etc/systemd/system/
+cp ${name}/mdproxy4cs.service /usr/share/mdproxy4cs/mdproxy4cs.service
 cp ${name}/default            /etc/default/mdproxy4cs
 
-systemctl enable /etc/systemd/system/mdproxy4cs.service
+systemctl enable /usr/share/mdproxy4cs/mdproxy4cs.service
 
 rm -rf ${dir}
