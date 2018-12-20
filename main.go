@@ -19,13 +19,13 @@ type App struct {
 }
 
 var (
-	gIName = kingpin.Flag("iname", "Use given interface to discover dchp server").
+	gIName = kingpin.Flag("iname", "Use given interface to discover dchp server, can be set by $MDPROXY4CS_INAME").
 		Envar("MDPROXY4CS_INAME").Default("eth0").String()
-	gLogLevel = kingpin.Flag("log-level", "Set log level").
+	gLogLevel = kingpin.Flag("log-level", "Set log level, can be set $MDPROXY4CS_LOG_LEVEL").
 			Envar("MDPROXY4CS_LOG_LEVEL").Default("info").String()
-	gLogFile = kingpin.Flag("log-file", "Set log output file, - for stdout").
+	gLogFile = kingpin.Flag("log-file", "Set log output file, - for stdout, can be set $MDPROXY4CS_LOG_FILE").
 			Envar("MDPROXY4CS_LOG_FILE").Default("-").String()
-	gHTTPListen = kingpin.Flag("http-listen", "Set server listen address").
+	gHTTPListen = kingpin.Flag("http-listen", "Set server listen address, can be set by $MDPROXY4CS_HTTP_LISTEN").
 			Envar("MDPROXY4CS_HTTP_LISTEN").Default("169.254.169.254:80").String()
 )
 
@@ -88,8 +88,8 @@ func (a *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	log.Debugf("serving response to %s: %s", r.URL.Path, string(content))
-	w.Write(content)
 	w.WriteHeader(res.StatusCode)
+	w.Write(content)
 }
 
 func (a *App) getVrouterAddress() string {
@@ -116,7 +116,7 @@ func main() {
 	kingpin.Parse()
 
 	app := NewApp()
-	log.Info("listening on %s", *gHTTPListen)
+	log.Infof("listening on %s", *gHTTPListen)
 	if err := http.ListenAndServe(*gHTTPListen, app); err != nil {
 		panic(err)
 	}
