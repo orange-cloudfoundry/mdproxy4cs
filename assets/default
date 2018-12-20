@@ -1,4 +1,5 @@
 MDPROXY4CS_INAME="eth0"
 MDPROXY4CS_LOG_LEVEL="info"
-MDPROXY4CS_LOG_FILE="/var/log/vr-metadata.log"
+# logs going to stdout is fine, they'll be stored into journald
+MDPROXY4CS_LOG_FILE="-"
 MDPROXY4CS_HTTP_LISTEN="169.254.169.254:80"
