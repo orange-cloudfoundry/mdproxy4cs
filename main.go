@@ -26,7 +26,7 @@ var (
 	gLogFile = kingpin.Flag("log-file", "Set log output file, - for stdout, can be set $MDPROXY4CS_LOG_FILE").
 			Envar("MDPROXY4CS_LOG_FILE").Default("-").String()
 	gHTTPListen = kingpin.Flag("http-listen", "Set server listen address, can be set by $MDPROXY4CS_HTTP_LISTEN").
-			Envar("MDPROXY4CS_HTTP_LISTEN").Default("169.254.169.254:80").String()
+			Envar("MDPROXY4CS_HTTP_LISTEN").Default("169.254.169.254:39724").String()
 )
 
 // NewApp -
