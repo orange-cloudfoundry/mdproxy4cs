@@ -1,0 +1,51 @@
+# This is an example goreleaser.yaml file with some sane defaults.
+# Make sure to check the documentation at http://goreleaser.com
+before:
+  hooks:
+    - go mod download
+    - go generate ./...
+builds:
+  - id: binary
+    goos:
+      - linux
+    ldflags:
+      - -s -w
+    goarch:
+      - amd64
+    env:
+      - CGO_ENABLED=0
+    main: ./
+    binary: mdproxy4cs
+archives:
+  - id: zip-archive-provider
+    builds: [binary]
+    name_template: "{{ .Binary }}-{{ .Version }}-{{ .Os }}-{{ .Arch }}"
+    format: tar.gz
+    wrap_in_directory: true
+    files:
+      - LICENSE
+      - assets/default
+      - assets/pre-start.sh
+      - assets/mdproxy4cs.service
+checksum:
+  name_template: 'checksums.txt'
+  algorithm: sha1
+# gitlab_urls:
+#   api: https://gitlab.si.francetelecom.fr/api/v4/
+#   download: https://gitlab.si.francetelecom.fr
+#   skip_tls_verify: true
+# artifactories:
+#   - name: latest
+#     target: https://artifactory.si.francetelecom.fr/dom-vos_generic/gotof/latest
+#     checksum: true
+#   - name: versionned
+#     target: https://artifactory.si.francetelecom.fr/dom-vos_generic/gotof/{{ .Version }}/
+#     checksum: true
+snapshot:
+  name_template: "{{ .Tag }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
