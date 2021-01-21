@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/orange-cloudfoundry/mdproxy4cs/version"
 	log "github.com/sirupsen/logrus"
 	"gopkg.in/alecthomas/kingpin.v2"
+	"github.com/prometheus/common/version"
 	"io/ioutil"
 	"net"
 	"net/http"
@@ -39,7 +39,7 @@ func NewApp() *App {
 	} else {
 		file, err := os.OpenFile(*gLogFile, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 		if err != nil {
-			log.Fatalf("unable to create log file %s: %s", gLogFile, err)
+			log.Fatalf("unable to create log file %s: %s", *gLogFile, err)
 		}
 		log.SetOutput(file)
 	}
@@ -111,7 +111,7 @@ func (a *App) getVrouterAddress() string {
 }
 
 func main() {
-	kingpin.Version(version.PrintVersion("mdproxy4cs"))
+	kingpin.Version(version.Print("mdproxy4cs"))
 	kingpin.HelpFlag.Short('h')
 	kingpin.Parse()
 
