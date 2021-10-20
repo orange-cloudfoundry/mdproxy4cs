@@ -5,7 +5,7 @@ go 1.17
 require (
 	github.com/google/gopacket v1.1.19
 	github.com/mdlayher/raw v0.0.0-20210412142147-51b895745faf
-	github.com/prometheus/common v0.31.1
+	github.com/prometheus/common v0.32.1
 	github.com/sirupsen/logrus v1.8.1
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 )
