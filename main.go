@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	log "github.com/sirupsen/logrus"
-	"gopkg.in/alecthomas/kingpin.v2"
+	"github.com/alecthomas/kingpin/v2"
 	"github.com/prometheus/common/version"
 	"io/ioutil"
 	"net"
