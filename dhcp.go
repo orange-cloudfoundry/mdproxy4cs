@@ -106,7 +106,7 @@ func (client *Client) readResponse(msgTypes ...layers.DHCPMsgType) (layers.DHCPM
 						msgType = layers.DHCPMsgType(option.Data[0])
 					}
 				case layers.DHCPOptServerID:
-					resIP = net.IP(option.Data)
+					resIP = option.Data
 				}
 			}
 			for _, t := range msgTypes {
