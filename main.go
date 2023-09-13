@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	log "github.com/sirupsen/logrus"
 	"github.com/alecthomas/kingpin/v2"
 	"github.com/prometheus/common/version"
-	"io/ioutil"
+	log "github.com/sirupsen/logrus"
+	"io"
 	"net"
 	"net/http"
 	"os"
@@ -81,7 +81,7 @@ func (a *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		time.Sleep(time.Second * 5)
 	}
 
-	content, err := ioutil.ReadAll(res.Body)
+	content, err := io.ReadAll(res.Body)
 	if err != nil {
 		log.Errorf("cannot read reponse from %s: %s", url, err)
 		w.WriteHeader(500)

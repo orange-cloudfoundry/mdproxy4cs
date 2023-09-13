@@ -62,7 +62,9 @@ func (client *Client) sendRequest(dhcp *layers.DHCPv4) error {
 		ComputeChecksums: true,
 		FixLengths:       true,
 	}
-	udp.SetNetworkLayerForChecksum(&ip)
+	if err := udp.SetNetworkLayerForChecksum(&ip); err != nil {
+		return err
+	}
 	err := gopacket.SerializeLayers(buf, opts, &eth, &ip, &udp, dhcp)
 	if err != nil {
 		return err
@@ -106,7 +108,7 @@ func (client *Client) readResponse(msgTypes ...layers.DHCPMsgType) (layers.DHCPM
 						msgType = layers.DHCPMsgType(option.Data[0])
 					}
 				case layers.DHCPOptServerID:
-					resIP = net.IP(option.Data)
+					resIP = option.Data
 				}
 			}
 			for _, t := range msgTypes {
