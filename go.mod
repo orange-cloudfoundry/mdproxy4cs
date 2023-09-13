@@ -1,6 +1,6 @@
 module github.com/orange-cloudfoundry/mdproxy4cs
 
-go 1.20
+go 1.21
 
 require (
 	github.com/alecthomas/kingpin/v2 v2.3.2
