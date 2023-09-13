@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	log "github.com/sirupsen/logrus"
 	"github.com/alecthomas/kingpin/v2"
 	"github.com/prometheus/common/version"
+	log "github.com/sirupsen/logrus"
 	"io"
 	"net"
 	"net/http"
