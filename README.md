@@ -6,7 +6,7 @@ needed by the bosh-agent to finalise the virtual machines configuration.
 
 Workflow:
 
-- bosh-agent first boot: setup a static configuration inside the VM
+- bosh-agent first boot: set up a static configuration inside the VM
 - `mdproxy4cs` start!
 
   - set up a predetermined Link-local IP address and listen on the defined port
