@@ -3,7 +3,7 @@ module github.com/orange-cloudfoundry/mdproxy4cs
 go 1.21
 
 require (
-	github.com/alecthomas/kingpin/v2 v2.3.2
+	github.com/alecthomas/kingpin/v2 v2.4.0
 	github.com/google/gopacket v1.1.19
 	github.com/mdlayher/raw v0.1.0
 	github.com/prometheus/common v0.45.0
