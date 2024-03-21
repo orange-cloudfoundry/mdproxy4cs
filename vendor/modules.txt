@@ -20,7 +20,7 @@ github.com/mdlayher/raw
 # github.com/mdlayher/socket v0.5.0
 ## explicit; go 1.21
 github.com/mdlayher/socket
-# github.com/prometheus/common v0.50.0
+# github.com/prometheus/common v0.51.0
 ## explicit; go 1.21
 github.com/prometheus/common/version
 # github.com/sirupsen/logrus v1.9.3
