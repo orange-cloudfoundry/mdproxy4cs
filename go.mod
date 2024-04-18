@@ -6,7 +6,7 @@ require (
 	github.com/alecthomas/kingpin/v2 v2.4.0
 	github.com/google/gopacket v1.1.19
 	github.com/mdlayher/raw v0.1.0
-	github.com/prometheus/common v0.52.3
+	github.com/prometheus/common v0.53.0
 	github.com/sirupsen/logrus v1.9.3
 )
 
