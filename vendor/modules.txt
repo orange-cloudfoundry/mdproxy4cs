@@ -14,11 +14,8 @@ github.com/josharian/native
 # github.com/mdlayher/packet v1.1.2
 ## explicit; go 1.20
 github.com/mdlayher/packet
-# github.com/mdlayher/raw v0.1.0
-## explicit; go 1.17
-github.com/mdlayher/raw
-# github.com/mdlayher/socket v0.5.0
-## explicit; go 1.21
+# github.com/mdlayher/socket v0.5.1
+## explicit; go 1.20
 github.com/mdlayher/socket
 # github.com/prometheus/common v0.53.0
 ## explicit; go 1.20
@@ -29,13 +26,13 @@ github.com/sirupsen/logrus
 # github.com/xhit/go-str2duration/v2 v2.1.0
 ## explicit; go 1.13
 github.com/xhit/go-str2duration/v2
-# golang.org/x/net v0.23.0
+# golang.org/x/net v0.25.0
 ## explicit; go 1.18
 golang.org/x/net/bpf
-# golang.org/x/sync v0.6.0
+# golang.org/x/sync v0.7.0
 ## explicit; go 1.18
 golang.org/x/sync/errgroup
-# golang.org/x/sys v0.18.0
+# golang.org/x/sys v0.20.0
 ## explicit; go 1.18
 golang.org/x/sys/unix
 golang.org/x/sys/windows
