@@ -14,9 +14,6 @@ github.com/josharian/native
 # github.com/mdlayher/packet v1.1.2
 ## explicit; go 1.20
 github.com/mdlayher/packet
-# github.com/mdlayher/raw v0.1.0
-## explicit; go 1.17
-github.com/mdlayher/raw
 # github.com/mdlayher/socket v0.5.0
 ## explicit; go 1.21
 github.com/mdlayher/socket

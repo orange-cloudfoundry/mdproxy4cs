@@ -89,7 +89,9 @@ func (a *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	log.Debugf("serving response to %s: %s", r.URL.Path, string(content))
 	w.WriteHeader(res.StatusCode)
-	w.Write(content)
+	if _, err := w.Write(content); err != nil {
+		log.Errorf("writing content failed: %s", err)
+	}
 }
 
 func (a *App) getVrouterAddress() string {

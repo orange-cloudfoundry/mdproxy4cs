@@ -3,9 +3,10 @@ package main
 import (
 	"github.com/google/gopacket"
 	"github.com/google/gopacket/layers"
-	"github.com/mdlayher/raw"
+	"github.com/mdlayher/packet"
 	"math/rand"
 	"net"
+	"syscall"
 	"time"
 )
 
@@ -13,24 +14,24 @@ import (
 type Client struct {
 	Iface *net.Interface
 	xid   uint32
-	cnx   *raw.Conn
+	cnx   *packet.Conn
 }
 
 func (client *Client) newPacket(msgType layers.DHCPMsgType) *layers.DHCPv4 {
-	packet := layers.DHCPv4{
+	dhcPv4 := layers.DHCPv4{
 		Operation:    layers.DHCPOpRequest,
 		HardwareType: layers.LinkTypeEthernet,
 		ClientHWAddr: client.Iface.HardwareAddr,
 		Xid:          client.xid, // Transaction ID
 	}
 
-	packet.Options = append(packet.Options, layers.DHCPOption{
+	dhcPv4.Options = append(dhcPv4.Options, layers.DHCPOption{
 		Type:   layers.DHCPOptMessageType,
 		Data:   []byte{byte(msgType)},
 		Length: 1,
 	})
 
-	return &packet
+	return &dhcPv4
 }
 
 func (client *Client) sendRequest(dhcp *layers.DHCPv4) error {
@@ -64,13 +65,13 @@ func (client *Client) sendRequest(dhcp *layers.DHCPv4) error {
 		return err
 	}
 
-	_, err = client.cnx.WriteTo(buf.Bytes(), &raw.Addr{HardwareAddr: eth.DstMAC})
+	_, err = client.cnx.WriteTo(buf.Bytes(), &packet.Addr{HardwareAddr: eth.DstMAC})
 	return err
 }
 
 func (client *Client) parsePacket(data []byte) *layers.DHCPv4 {
-	packet := gopacket.NewPacket(data, layers.LayerTypeEthernet, gopacket.Default)
-	dhcpLayer := packet.Layer(layers.LayerTypeDHCPv4)
+	newPacket := gopacket.NewPacket(data, layers.LayerTypeEthernet, gopacket.Default)
+	dhcpLayer := newPacket.Layer(layers.LayerTypeDHCPv4)
 
 	if dhcpLayer == nil {
 		return nil
@@ -79,23 +80,26 @@ func (client *Client) parsePacket(data []byte) *layers.DHCPv4 {
 }
 
 func (client *Client) readResponse(msgTypes ...layers.DHCPMsgType) (layers.DHCPMsgType, *net.IP, error) {
-	client.cnx.SetReadDeadline(time.Now().Add(time.Second * 5))
+	err := client.cnx.SetReadDeadline(time.Now().Add(time.Second * 5))
+	if err != nil {
+		return 0, nil, err
+	}
 	recvBuf := make([]byte, 1500)
 	for {
 		_, _, err := client.cnx.ReadFrom(recvBuf)
 		if err != nil {
 			return 0, nil, err
 		}
-		packet := client.parsePacket(recvBuf)
-		if packet == nil {
+		parsePacket := client.parsePacket(recvBuf)
+		if parsePacket == nil {
 			continue
 		}
 
 		var msgType layers.DHCPMsgType
 		var resIP net.IP
 
-		if packet.Xid == client.xid && packet.Operation == layers.DHCPOpReply {
-			for _, option := range packet.Options {
+		if parsePacket.Xid == client.xid && parsePacket.Operation == layers.DHCPOpReply {
+			for _, option := range parsePacket.Options {
 				switch option.Type {
 				case layers.DHCPOptMessageType:
 					if option.Length == 1 {
@@ -116,7 +120,7 @@ func (client *Client) readResponse(msgTypes ...layers.DHCPMsgType) (layers.DHCPM
 
 // DiscoverServer -
 func (client *Client) DiscoverServer() (*net.IP, error) {
-	cnx, err := raw.ListenPacket(client.Iface, uint16(layers.EthernetTypeIPv4), nil)
+	cnx, err := packet.Listen(client.Iface, packet.Datagram, syscall.ETH_P_IP, nil)
 	if err != nil {
 		return nil, err
 	}
