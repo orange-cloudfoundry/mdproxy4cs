@@ -9,12 +9,6 @@ import (
 	"time"
 )
 
-// Option -
-type Option struct {
-	Type layers.DHCPOpt
-	Data []byte
-}
-
 // Client -
 type Client struct {
 	Iface *net.Interface
