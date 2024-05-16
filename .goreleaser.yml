@@ -16,7 +16,6 @@ builds:
       - -X github.com/prometheus/common/version.BuildDate={{.Date}}
     goos:
       - linux
-      - darwin
     goarch:
       - amd64
 
