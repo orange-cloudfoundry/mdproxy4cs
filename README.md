@@ -2,7 +2,7 @@
 
 `mdproxy4cs` is installed in our BOSH stemcell where it is used
 to abstract the complexity to access the IaaS metadata from CloudStack
-needed by the bosh-agent to finalise the virtual machines configuration.
+needed by the bosh-agent to finalise the virtual machines' configuration.
 
 Workflow:
 
