@@ -1,13 +1,15 @@
 package main
 
 import (
-	"github.com/google/gopacket"
-	"github.com/google/gopacket/layers"
-	"github.com/mdlayher/packet"
 	"math/rand"
 	"net"
 	"syscall"
 	"time"
+
+	"github.com/google/gopacket"
+	"github.com/google/gopacket/layers"
+	"github.com/mdlayher/packet"
+	"github.com/orange-cloudfoundry/mdproxy4cs/utils"
 )
 
 // Client -
@@ -128,7 +130,7 @@ func (client *Client) DiscoverServer() (*net.IP, error) {
 	client.xid = rand.Uint32()
 
 	defer func() {
-		client.cnx.Close()
+		utils.CloseAndLogError(client.cnx)
 		client.cnx = nil
 	}()
 
