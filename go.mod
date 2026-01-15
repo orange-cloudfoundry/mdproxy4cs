@@ -7,7 +7,7 @@ require (
 	github.com/google/gopacket v1.1.19
 	github.com/mdlayher/packet v1.1.2
 	github.com/prometheus/common v0.67.5
-	github.com/sirupsen/logrus v1.9.3
+	github.com/sirupsen/logrus v1.9.4
 )
 
 require (
