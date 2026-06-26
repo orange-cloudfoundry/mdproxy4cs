@@ -3,7 +3,6 @@ package main
 import (
 	"math/rand"
 	"net"
-	"syscall"
 	"time"
 
 	"github.com/google/gopacket"
@@ -122,7 +121,7 @@ func (client *Client) readResponse(msgTypes ...layers.DHCPMsgType) (layers.DHCPM
 
 // DiscoverServer -
 func (client *Client) DiscoverServer() (*net.IP, error) {
-	cnx, err := packet.Listen(client.Iface, packet.Datagram, syscall.ETH_P_IP, nil)
+	cnx, err := packet.Listen(client.Iface, packet.Datagram, 0x0800, nil) // 0x0800 = ETH_P_IP
 	if err != nil {
 		return nil, err
 	}
