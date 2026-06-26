@@ -1,21 +1,21 @@
 module github.com/orange-cloudfoundry/mdproxy4cs
 
-go 1.25.5
+go 1.26
 
 require (
 	github.com/alecthomas/kingpin/v2 v2.4.0
 	github.com/google/gopacket v1.1.19
 	github.com/mdlayher/packet v1.1.2
-	github.com/prometheus/common v0.67.5
+	github.com/prometheus/common v0.69.0
 	github.com/sirupsen/logrus v1.9.4
 )
 
 require (
 	github.com/alecthomas/units v0.0.0-20240927000941-0f3dac36c52b // indirect
 	github.com/josharian/native v1.1.0 // indirect
-	github.com/mdlayher/socket v0.5.1 // indirect
+	github.com/mdlayher/socket v0.6.1 // indirect
 	github.com/xhit/go-str2duration/v2 v2.1.0 // indirect
-	golang.org/x/net v0.48.0 // indirect
-	golang.org/x/sync v0.19.0 // indirect
-	golang.org/x/sys v0.39.0 // indirect
+	golang.org/x/net v0.56.0 // indirect
+	golang.org/x/sync v0.21.0 // indirect
+	golang.org/x/sys v0.46.0 // indirect
 )
