@@ -17,7 +17,7 @@ github.com/mdlayher/packet
 # github.com/mdlayher/socket v0.6.1
 ## explicit; go 1.25.0
 github.com/mdlayher/socket
-# github.com/prometheus/common v0.69.0
+# github.com/prometheus/common v0.70.0
 ## explicit; go 1.25.0
 github.com/prometheus/common/version
 # github.com/sirupsen/logrus v1.9.4
