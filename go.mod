@@ -12,9 +12,9 @@ require (
 
 require (
 	github.com/alecthomas/units v0.0.0-20240927000941-0f3dac36c52b // indirect
-	github.com/mdlayher/socket v0.7.0 // indirect
-	github.com/xhit/go-str2duration/v2 v2.1.0 // indirect
-	golang.org/x/net v0.62.0 // indirect
-	golang.org/x/sync v0.23.0 // indirect
-	golang.org/x/sys v0.49.0 // indirect
+	github.com/mdlayher/socket v0.8.0 // indirect
+	github.com/xhit/go-str2duration/v2 v2.2.0 // indirect
+	golang.org/x/net v0.63.0 // indirect
+	golang.org/x/sync v0.25.0 // indirect
+	golang.org/x/sys v0.50.0 // indirect
 )
